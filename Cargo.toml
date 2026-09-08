@@ -1,6 +1,6 @@
 [package]
 name = "git-localbranchtidy"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2024"
 description = "Delete all branches that have been merged into `main` or `master`."
 repository = "https://github.com/plicease/git-localbranchtidy"

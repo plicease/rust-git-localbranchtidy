@@ -1,3 +1,9 @@
+git-localbranchtidy (0.1.1-1) unstable; urgency=medium
+
+  * Bump version to 0.1.1.
+
+ -- Graham Ollis <devnull@wdlabs.com>  Mon, 07 Sep 2026 19:00:45 -0600
+
 git-localbranchtidy (0.1.0-1) unstable; urgency=medium
 
   * Initial release.
