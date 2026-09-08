@@ -13,6 +13,7 @@ anyhow = "1.0.104"
 [package.metadata.deb]
 maintainer = "Graham Ollis <devnull@wdlabs.com>"
 copyright = "2026 Graham Ollis"
+changelog = "debian/changelog"
 extended-description = """\
 git localbranchtidy is a git subcommand that detects the repository's main
 branch (usually main or master) and deletes every local branch whose tip has
