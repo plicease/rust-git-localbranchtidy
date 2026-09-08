@@ -34,6 +34,20 @@ When `--main-branch` is not given, the main branch is resolved in this order:
 If none of those apply, the command exits with an error asking for
 `--main-branch`.
 
+## Man page
+
+`man/git-localbranchtidy.1` is installed to `usr/share/man/man1` by the Debian
+package. When installing by hand (e.g. `cargo install --path .`, which does not
+handle man pages), copy it somewhere on your `MANPATH`:
+
+```
+install -Dm644 man/git-localbranchtidy.1 ~/.local/share/man/man1/git-localbranchtidy.1
+```
+
+Once it is found by `man`, `git localbranchtidy --help` opens it (git rewrites
+`--help` on a subcommand into a man-page lookup); use `-h` for the inline usage
+summary.
+
 ## Note
 
 Detection relies on the branch tip being an ancestor of the main branch.
