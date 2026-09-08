@@ -1,0 +1,105 @@
+.TH GIT-LOCALBRANCHTIDY 1 "2026-09-07" "git-localbranchtidy 0.1.1" "Git Extensions"
+.SH NAME
+git-localbranchtidy \- delete local branches already merged into the main branch
+.SH SYNOPSIS
+.B git localbranchtidy
+.RI [ options ]
+.SH DESCRIPTION
+.B git localbranchtidy
+detects the repository's main branch (usually
+.B main
+or
+.BR master )
+and deletes every local branch whose tip is reachable from it, i.e. every
+branch that has already been merged.
+.PP
+The main branch and the currently checked\-out branch are always left
+alone. Branches are removed with
+.RB \[dq] "git branch \-d" \[dq],
+so a branch that is not actually merged is never deleted even if it is
+listed.
+.SH OPTIONS
+.TP
+.BR \-i ", " \-\-interactive
+Ask for confirmation before removing each branch. Any answer other than
+.B y
+or
+.B yes
+(case\-insensitive) leaves the branch in place. End of input is treated as
+a declined prompt.
+.TP
+.BI \-\-main\-branch " NAME"
+Use
+.I NAME
+as the main branch instead of auto\-detecting it. The named branch must
+exist locally.
+.TP
+.BR \-h ", " \-\-help
+Print a short usage summary and exit.
+.TP
+.BR \-V ", " \-\-version
+Print the version and exit.
+.SH "MAIN BRANCH DETECTION"
+When
+.B \-\-main\-branch
+is not given, the main branch is resolved in this order:
+.IP 1. 4
+.BR origin/HEAD ,
+the default branch reported by the remote, when the corresponding local
+branch exists.
+.IP 2. 4
+A local branch named
+.BR main .
+.IP 3. 4
+A local branch named
+.BR master .
+.PP
+If none of these apply the command exits with an error asking for
+.BR \-\-main\-branch .
+.SH "EXIT STATUS"
+.TP
+.B 0
+Success, including the case where there were no merged branches to
+remove.
+.TP
+.B 1
+An error occurred: the main branch could not be detected, an option was
+misused, or a
+.B git
+command failed.
+.SH EXAMPLES
+.TP
+Tidy up after merging some feature branches:
+.EX
+git localbranchtidy
+.EE
+.TP
+Review each deletion first:
+.EX
+git localbranchtidy \-\-interactive
+.EE
+.TP
+Treat
+.B trunk
+as the main branch:
+.EX
+git localbranchtidy \-\-main\-branch trunk
+.EE
+.SH NOTES
+Detection relies on the branch tip being an ancestor of the main branch.
+Branches that were squash\-merged or rebase\-merged do not appear as merged
+and are therefore not removed.
+.PP
+Because git rewrites
+.RB \[dq] "git localbranchtidy \-\-help" \[dq]
+into a request for this manual page, use
+.RB \[dq] "git localbranchtidy \-h" \[dq]
+to see the inline usage summary.
+.SH "SEE ALSO"
+.BR git-branch (1)
+.SH AUTHOR
+Graham Ollis.
+.SH "REPORTING BUGS"
+Report bugs at
+.UR https://github.com/plicease/git-localbranchtidy/issues
+.UE .
